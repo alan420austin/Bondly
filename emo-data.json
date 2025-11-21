@@ -1,0 +1,164 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fullName": "John Smith",
+      "email": "john@university.edu",
+      "password": "password123",
+      "department": "CSE",
+      "avatar": "👨‍💻",
+      "createdAt": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "fullName": "Sarah Johnson",
+      "email": "sarah@university.edu",
+      "password": "password123",
+      "department": "EEE",
+      "avatar": "👩‍🔬",
+      "createdAt": "2024-01-15T10:05:00.000Z"
+    },
+    {
+      "id": 3,
+      "fullName": "Mike Chen",
+      "email": "mike@university.edu",
+      "password": "password123",
+      "department": "Civil",
+      "avatar": "👨‍🔧",
+      "createdAt": "2024-01-15T10:10:00.000Z"
+    },
+    {
+      "id": 4,
+      "fullName": "Emily Davis",
+      "email": "emily@university.edu",
+      "password": "password123",
+      "department": "Mechanical",
+      "avatar": "👩‍🏭",
+      "createdAt": "2024-01-15T10:15:00.000Z"
+    },
+    {
+      "id": 5,
+      "fullName": "Admin User",
+      "email": "admin@university.edu",
+      "password": "admin123",
+      "department": "CSE",
+      "avatar": "👨‍💼",
+      "isAdmin": true,
+      "createdAt": "2024-01-15T09:00:00.000Z"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "content": "Anyone working on the Data Structures assignment? I need help with binary tree implementation! 🎯",
+      "authorId": 1,
+      "authorName": "John Smith",
+      "authorDepartment": "CSE",
+      "targetDepartment": "CSE",
+      "likes": 3,
+      "comments": [],
+      "createdAt": "2024-01-15T11:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "content": "Lab session for Circuit Analysis has been moved to Friday 2 PM. Please update your schedules! ⚡",
+      "authorId": 2,
+      "authorName": "Sarah Johnson",
+      "authorDepartment": "EEE",
+      "targetDepartment": "EEE",
+      "likes": 5,
+      "comments": [],
+      "createdAt": "2024-01-15T10:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "content": "Study group for Structural Analysis tomorrow at 3 PM in the library. All Civil students welcome! 🏗️",
+      "authorId": 3,
+      "authorName": "Mike Chen",
+      "authorDepartment": "Civil",
+      "targetDepartment": "Civil",
+      "likes": 2,
+      "comments": [],
+      "createdAt": "2024-01-15T14:20:00.000Z"
+    }
+  ],
+  "notices": [
+    {
+      "id": 1,
+      "title": "Welcome to PBL Season 3 - University Social Platform",
+      "content": "Welcome all students to our new university social platform! This platform is designed to help you connect with your department peers, share academic resources, collaborate on projects, and stay updated with university announcements. Make the most of your academic journey with PBL Season 3!",
+      "department": "all",
+      "author": "University Administration",
+      "priority": "high",
+      "createdAt": "2024-01-15T09:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "title": "CSE Department - Lab Schedule Update & Software Installation",
+      "content": "Computer lab schedules for CSE students have been updated for this semester. All labs will now have extended hours until 8 PM. Please ensure you have the required software (VS Code, Python 3.11, Java JDK 17) installed before your first lab session. Lab assistants will be available for technical support during the first week.",
+      "department": "CSE",
+      "author": "CSE Department Head",
+      "priority": "medium",
+      "createdAt": "2024-01-15T08:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "title": "EEE Workshop on Renewable Energy Systems & Smart Grid Technology",
+      "content": "The EEE department is organizing a comprehensive workshop on Renewable Energy Systems and Smart Grid Technology next Friday at 3 PM in the main auditorium. Industry experts from leading energy companies will be presenting. All EEE students are encouraged to attend. Certificates of participation will be provided.",
+      "department": "EEE",
+      "author": "EEE Department",
+      "priority": "medium",
+      "createdAt": "2024-01-14T16:45:00.000Z"
+    },
+    {
+      "id": 4,
+      "title": "Library Extended Hours During Examination Period",
+      "content": "To support students during the upcoming examination period, the university library will extend its operating hours. From next Monday, the library will remain open until 11 PM on weekdays and until 8 PM on weekends. Additional study spaces have been arranged in the adjacent building.",
+      "department": "all",
+      "author": "Library Administration",
+      "priority": "medium",
+      "createdAt": "2024-01-14T14:20:00.000Z"
+    },
+    {
+      "id": 5,
+      "title": "Mechanical Engineering - Industrial Visit to Automotive Plant",
+      "content": "The Mechanical Engineering department has organized an industrial visit to the ABC Automotive manufacturing plant next Wednesday. Students will get hands-on experience with modern manufacturing processes and automation systems. Please register with the department office by Monday. Transportation will be provided.",
+      "department": "Mechanical",
+      "author": "Mechanical Department",
+      "priority": "low",
+      "createdAt": "2024-01-13T11:15:00.000Z"
+    }
+  ],
+  "chats": [
+    {
+      "id": 1,
+      "chatId": "1_2",
+      "text": "Hi Sarah! I saw you're in EEE. I'm working on a project that involves both programming and circuit design. Would you be interested in collaborating?",
+      "senderId": 1,
+      "senderName": "John Smith",
+      "senderAvatar": "👨‍💻",
+      "timestamp": "2024-01-15T11:30:00.000Z",
+      "read": true
+    },
+    {
+      "id": 2,
+      "chatId": "1_2",
+      "text": "Hi John! That sounds interesting. I've been looking for someone to help with the programming side of my final year project. What kind of project are you working on?",
+      "senderId": 2,
+      "senderName": "Sarah Johnson",
+      "senderAvatar": "👩‍🔬",
+      "timestamp": "2024-01-15T11:32:00.000Z",
+      "read": true
+    },
+    {
+      "id": 3,
+      "chatId": "1_3",
+      "text": "Hey Mike, I noticed you're in Civil Engineering. I'm working on a software for structural analysis and could use some domain expertise. Would you be open to discussing this?",
+      "senderId": 1,
+      "senderName": "John Smith",
+      "senderAvatar": "👨‍💻",
+      "timestamp": "2024-01-15T12:15:00.000Z",
+      "read": false
+    }
+  ]
+}

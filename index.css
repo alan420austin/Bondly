@@ -1,0 +1,235 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Background Animation */
+body::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: moveBackground 20s linear infinite;
+    z-index: 0;
+}
+
+@keyframes moveBackground {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+/* SPLASH SCREEN */
+.splash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeOut 2s ease-in forwards;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 60px;
+    font-weight: 800;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    animation: logoFloat 2s ease-in-out;
+}
+
+/* Logo Icon */
+.logo::before {
+    content: '◆';
+    font-size: 50px;
+    animation: logoRotate 2s ease-in-out;
+    display: inline-block;
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes logoRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* FADE OUT ANIMATION */
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    90% { opacity: 0; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+/* MAIN SCREEN */
+.hidden {
+    display: none;
+}
+
+.main {
+    text-align: center;
+    color: white;
+    z-index: 1;
+    position: relative;
+    animation: fadeIn 1s ease-in 2s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.main-logo {
+    font-size: 45px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Main Logo Icon */
+.main-logo::before {
+    content: '◆';
+    font-size: 40px;
+    color: white;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+.tagline {
+    margin-top: -10px;
+    margin-bottom: 35px;
+    font-size: 18px;
+    opacity: 0.9;
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.15);
+    letter-spacing: 0.5px;
+}
+
+.btn-box {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-box button {
+    width: 180px;
+    padding: 12px;
+    margin: 10px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-box button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-box button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-box button span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Buttons */
+#signupBtn {
+    background: white;
+    color: #007bff;
+    font-weight: bold;
+}
+
+#signupBtn:hover {
+    background: #e6e6e6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+#signupBtn:active {
+    transform: translateY(0);
+}
+
+#loginBtn {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+#loginBtn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+#loginBtn:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 45px;
+    }
+    
+    .logo::before {
+        font-size: 40px;
+    }
+
+    .main-logo {
+        font-size: 35px;
+    }
+
+    .main-logo::before {
+        font-size: 32px;
+    }
+
+    .tagline {
+        font-size: 16px;
+    }
+
+    .btn-box button {
+        width: 160px;
+        font-size: 16px;
+    }
+}

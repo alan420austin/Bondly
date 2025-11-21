@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed - PBL Season 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/feed.css">
+    <style>
+        /* Additional styles for PBL Season 3 features */
+        .department-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .ai-assistant-floating {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .ai-assistant-floating:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 2rem auto;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .ai-chat-container {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #f8f9fa;
+        }
+
+        .ai-message {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .ai-message.user-message {
+            background: #667eea;
+            color: white;
+            margin-left: 20%;
+        }
+
+        .ai-message.ai-response {
+            background: white;
+            margin-right: 20%;
+        }
+
+        .ai-input-container {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-input-container input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        .ai-input-container input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .ai-input-container button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .ai-input-container .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .ai-input-container .btn-secondary {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        .post-department-filter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .post-department-filter select {
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            background: white;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🎓</span>
+                <h1>PBL Season 3</h1>
+                <span id="userDepartment" class="department-badge" style="display: none;"></span>
+            </div>
+            <nav>
+                <button onclick="window.location.href='notices.html'" class="nav-btn">
+                    <span class="btn-icon">📢</span>
+                    <span>Notices</span>
+                </button>
+                <button onclick="window.location.href='chat.html'" class="nav-btn">
+                    <span class="btn-icon">💬</span>
+                    <span>Chat</span>
+                </button>
+                <button id="profileBtn" class="nav-btn">
+                    <span class="btn-icon">👤</span>
+                    <span>Profile</span>
+                </button>
+                <button id="logoutBtn" class="nav-btn logout">
+                    <span class="btn-icon">🚪</span>
+                    <span>Logout</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="create-post">
+                <div class="section-header">
+                    <h2>Create Post</h2>
+                    <span class="section-icon">✍️</span>
+                </div>
+                <div class="post-form">
+                    <textarea id="postContent"
+                        placeholder="What's happening in your department? Share updates, ask questions, or share resources..."
+                        rows="4"></textarea>
+
+                    <!-- Department Selection for Post -->
+                    <div class="post-department-filter">
+                        <span style="font-weight: 500;">Share with:</span>
+                        <select id="postDepartment">
+                            <option value="same">My Department Only</option>
+                            <option value="all">All Departments</option>
+                        </select>
+                    </div>
+
+                    <div class="post-actions">
+                        <span class="char-count" id="charCount">0/500</span>
+                        <button id="postBtn">
+                            <span>Post to PBL</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="feed">
+                <div class="section-header">
+                    <h2>Department Feed</h2>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <select id="feedFilter"
+                            style="padding: 8px 12px; border: 2px solid #e0e0e0; border-radius: 20px; background: white; font-size: 14px;">
+                            <option value="my">My Department</option>
+                            <option value="all">All Departments</option>
+                            <option value="CSE">CSE</option>
+                            <option value="EEE">EEE</option>
+                            <option value="Civil">Civil</option>
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="English">English</option>
+                            <option value="BBA">BBA</option>
+                        </select>
+                        <span class="section-icon">📰</span>
+                    </div>
+                </div>
+                <div id="postsContainer" class="posts-container">
+                    <!-- Posts will be dynamically added here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- AI Assistant Floating Button -->
+    <button class="ai-assistant-floating" onclick="openAIAssistant()" title="AI Assistant">
+        🤖
+    </button>
+
+    <!-- AI Assistant Modal -->
+    <div id="aiModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🤖 PBL AI Assistant</h3>
+                <button onclick="closeAIAssistant()" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="aiChat" class="ai-chat-container">
+                    <div class="ai-message ai-response">
+                        Hello! I'm your PBL Season 3 AI assistant. 🎓<br><br>
+                        I can help you with:
+                        • Reminders and schedules ⏰
+                        • Department notices 📢
+                        • Assignment tracking 📚
+                        • Study resources 📖
+                        • General academic questions<br><br>
+                        How can I assist you today?
+                    </div>
+                </div>
+                <div class="ai-input-container">
+                    <input type="text" id="aiInput"
+                        placeholder="Ask me anything about academics, notices, or schedules...">
+                    <button id="voiceBtn" onclick="toggleVoiceRecognition()" class="btn-secondary">🎤</button>
+                    <button onclick="sendAIMessage()" class="btn-primary">Send</button>
+                </div>
+                <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="quickAICommand('notices')"
+                        style="padding: 8px 12px; border: 1px solid #667eea; border-radius: 15px; background: white; color: #667eea; cursor: pointer; font-size: 12px;">📢
+                        Notices</button>
+                    <button onclick="quickAICommand('assignments')"
+                        style="padding: 8px 12px; border: 1px solid #667eea; border-radius: 15px; background: white; color: #667eea; cursor: pointer; font-size: 12px;">📚
+                        Assignments</button>
+                    <button onclick="quickAICommand('reminder')"
+                        style="padding: 8px 12px; border: 1px solid #667eea; border-radius: 15px; background: white; color: #667eea; cursor: pointer; font-size: 12px;">⏰
+                        Reminder</button>
+                    <button onclick="quickAICommand('help')"
+                        style="padding: 8px 12px; border: 1px solid #667eea; border-radius: 15px; background: white; color: #667eea; cursor: pointer; font-size: 12px;">❓
+                        Help</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="popup"></div>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/feed.js"></script>
+    <script src="js/ai.js"></script>
+</body>
+
+</html>
