@@ -1,9 +1,4 @@
 
-let currentUser = JSON.parse(localStorage.getItem("bondlyUser"));
-if (!currentUser) {
-    alert("Please login first");
-    window.location.href = "login.html";
-}
 // Sample posts data (in real app, this would come from a database)
 let posts = [];
 
@@ -185,3 +180,4 @@ postContent.addEventListener('keydown', (e) => {
         postBtn.click();
     }
 });
+
