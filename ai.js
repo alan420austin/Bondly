@@ -6,7 +6,7 @@ class AIService {
         
         // Greetings
         if (this.isGreeting(lowerCommand)) {
-            return `Hello ${currentUser?.fullName || 'there'}! I'm your PBL Season 3 AI assistant. I can help you with academic queries, reminders, notices, and more. How can I assist you today?`;
+            return `Hello ${currentUser?.fullName || 'there'}! I'm your wife. I can help you with academic queries, reminders, notices, and more. How can I assist you today?`;
         }
         
         // Time queries
@@ -501,4 +501,5 @@ document.addEventListener('DOMContentLoaded', function() {
         quickActions.setAttribute('data-initialized', 'true');
         // Buttons will be handled by the onclick attributes in HTML
     }
+
 });
