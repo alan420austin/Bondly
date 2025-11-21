@@ -1,6 +1,5 @@
 
-// Enhanced Authentication for PBL Season 3 with Department Support
-
+// auth.js - Enhanced Authentication for PBL Season 3
 class AuthService {
     static getCurrentUser() {
         return JSON.parse(localStorage.getItem(STORAGE_KEYS.CURRENT_USER));
@@ -137,41 +136,24 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const messageDiv = document.getElementById('loginMessage');
+            const popup = document.getElementById('popup');
 
             const result = await AuthService.login(email, password);
             
             if (result.success) {
-                showMessage('Login successful! Redirecting...', 'success', messageDiv);
+                showMessage('Login successful! Redirecting...', 'success');
                 setTimeout(() => {
                     window.location.href = 'feed.html';
                 }, 1000);
             } else {
-                showMessage(result.error, 'error', messageDiv);
+                showMessage(result.error, 'error');
             }
         });
     }
 
-    // Enhanced Signup form handling with Department
+    // Enhanced Signup form handling
     const signupForm = document.getElementById('signupForm');
     if (signupForm) {
-        // Add department dropdown if it doesn't exist
-        if (!document.getElementById('department')) {
-            const passwordGroup = document.querySelector('.form-group:has(#password)');
-            if (passwordGroup) {
-                const departmentHtml = `
-                    <div class="form-group">
-                        <label for="department">Department</label>
-                        <select id="department" required>
-                            <option value="">Select Your Department</option>
-                            ${DEPARTMENTS.map(dept => `<option value="${dept}">${dept}</option>`).join('')}
-                        </select>
-                    </div>
-                `;
-                passwordGroup.insertAdjacentHTML('beforebegin', departmentHtml);
-            }
-        }
-
         signupForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -179,10 +161,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = document.getElementById('email').value;
             const department = document.getElementById('department').value;
             const password = document.getElementById('password').value;
-            const messageDiv = document.getElementById('signupMessage');
 
             if (!department) {
-                showMessage('Please select your department', 'error', messageDiv);
+                showMessage('Please select your department', 'error');
                 return;
             }
 
@@ -194,12 +175,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             if (result.success) {
-                showMessage('Account created successfully! Welcome to Bondly 🎓', 'success', messageDiv);
+                showMessage('Account created successfully! Welcome to Bondly 🎓', 'success');
                 setTimeout(() => {
                     window.location.href = 'feed.html';
                 }, 1500);
             } else {
-                showMessage(result.error, 'error', messageDiv);
+                showMessage(result.error, 'error');
             }
         });
     }
@@ -238,19 +219,55 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Utility function to show messages
-function showMessage(message, type, element) {
-    if (element) {
-        element.textContent = message;
-        element.className = `message ${type}`;
-    } else {
-        // Create popup for other pages
-        const popup = document.createElement('div');
-        popup.className = `popup show ${type}`;
+function showMessage(message, type) {
+    const popup = document.getElementById('popup');
+    if (popup) {
         popup.textContent = message;
-        document.body.appendChild(popup);
+        popup.className = `popup show ${type}`;
         
+        // Reset popup after 3 seconds
         setTimeout(() => {
-            popup.remove();
+            popup.className = 'popup hidden';
         }, 3000);
+    } else {
+        // Fallback alert if popup element doesn't exist
+        alert(message);
     }
 }
+
+// Add input validation enhancements
+function initializeFormValidation() {
+    const emailInputs = document.querySelectorAll('input[type="email"]');
+    emailInputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            const email = this.value;
+            if (email && !isValidEmail(email)) {
+                this.style.borderColor = 'red';
+                showMessage('Please enter a valid university email address', 'error');
+            } else {
+                this.style.borderColor = '#e0e0e0';
+            }
+        });
+    });
+
+    const passwordInputs = document.querySelectorAll('input[type="password"]');
+    passwordInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            if (this.value.length > 0 && this.value.length < 6) {
+                this.style.borderColor = 'orange';
+            } else if (this.value.length >= 6) {
+                this.style.borderColor = 'green';
+            } else {
+                this.style.borderColor = '#e0e0e0';
+            }
+        });
+    });
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Initialize form validation when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeFormValidation);
